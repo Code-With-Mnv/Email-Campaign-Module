@@ -5,7 +5,7 @@ import os
 
 # Load template content from .html files
 def get_template_content(template_name):
-    path = f"main/templates/email_templates/{template_name}.html"
+    path = f"main/templates/email_templates/{template_name}.txt"
     with open(path, "r", encoding="utf-8") as file:
         return file.read()
 
@@ -18,10 +18,12 @@ def send_email_with_tracking(to_email, template_name, email_id):
     body = get_template_content(template_name)
 
     # Embed tracking image before </body> (or append if not found)
-    tracking_url = f"http://your-domain.com/track_open?email_id={email_id}"
+    domain = os.getenv("DOMAIN")
+    tracking_url = f"{domain}/track_open?email_id={email_id}"
     tracking_img = f'<img src="{tracking_url}" width="1" height="1" />'
 
     html_body = body.replace("{{tracking_pixel}}", tracking_img)
+
 
     # Prepare email message
     msg = MIMEMultipart("alternative")
@@ -32,6 +34,10 @@ def send_email_with_tracking(to_email, template_name, email_id):
     msg.attach(MIMEText(html_body, "html"))
 
     # Send using Gmail SMTP
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-        server.login(sender_email, password)
-        server.sendmail(sender_email, to_email, msg.as_string())
+    try:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+            server.login(sender_email, password)
+            server.sendmail(sender_email, to_email, msg.as_string())
+    except Exception as e:
+        print(f"[❌ Email Error] Failed to send to {to_email}: {e}")
+        raise  # Optional: re-raise to let caller handle it

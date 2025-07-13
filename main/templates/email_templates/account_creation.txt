@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <body style="font-family: Arial, sans-serif; color: #333">
+    <h2>Welcome to the Team!</h2>
+    <p>
+      Your account has been <strong>successfully created</strong>. We're excited
+      to have you on board!
+    </p>
+    <p>You can now log in and start exploring everything we have to offer.</p>
+    <p>
+      If you have any questions, feel free to
+      <a href="mailto:support@yourdomain.com" style="color: #007bff">
+        contact our support team</a
+      >.
+    </p>
+    <p>Cheers,<br /><br />– The Team</p>
+    {{tracking_pixel}}
+
+  </body>
+</html>

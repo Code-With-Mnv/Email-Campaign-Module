@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, render_template, request, jsonify
 from main.extensions import db
 from main.models.email_model import Email
 from main.utils import send_email_with_tracking
@@ -6,11 +6,11 @@ from flask import send_file
 
 email_bp = Blueprint("email", __name__)
 
-@email_bp.route("/emails", methods=["GET"])
+@email_bp.route("/", methods=["GET"])
 def get_emails():
     emails = Email.query.all()
     email_list = [{"id": email.id, "recipient_email": email.recipient_email, "status": email.status} for email in emails]  
-    return jsonify(email_list), 200
+    return render_template("index.html", emails=email_list)
 
 @email_bp.route("/send_email", methods=["POST"])
 def send_email_route():

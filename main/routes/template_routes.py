@@ -8,14 +8,14 @@ def get_template_names():
     template_dir = "main/templates/email_templates"
     files = os.listdir(template_dir)
 
-    templates = [f.replace(".html", "") for f in files if f.endswith(".html")]
+    templates = [f.replace(".txt", "") for f in files if f.endswith(".txt")]
 
     return jsonify({ "templates": templates })
 
 @template_bp.route("/template/<name>", methods=["GET"])
 def get_template_content(name):
     try:
-        path = f"main/templates/email_templates/{name}.html"
+        path = f"main/templates/email_templates/{name}.txt"
         with open(path, "r", encoding="utf-8") as file:
             content = file.read()
         return jsonify({ "content": content })

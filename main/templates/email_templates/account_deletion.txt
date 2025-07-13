@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <body style="font-family: Arial, sans-serif; color: #333">
-    <h2>We're Sorry to See You Go, {{name}}!</h2>
+    <h2>We're Sorry to See You Go!</h2>
     <p>
       Your account has been <strong>successfully deleted</strong> as per your
       request.
@@ -18,5 +18,6 @@
     </p>
     <p>Best wishes,<br /><br />– The Team</p>
     {{tracking_pixel}}
+
   </body>
 </html>
