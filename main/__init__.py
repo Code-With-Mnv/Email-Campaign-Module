@@ -14,12 +14,11 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
-    # Register blueprints here if any
     from main.models.email_model import Email
 
-    # from main.routes.routes import test_bp
-
-    # app.register_blueprint(test_bp)
-
+    from main.routes import main as main_blueprint
+    from main.routes.template_routes import template_bp
+    app.register_blueprint(main_blueprint)
+    app.register_blueprint(template_bp)
 
     return app
